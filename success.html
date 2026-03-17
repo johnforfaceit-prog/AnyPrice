@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Спасибо за заказ — AnyPrice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <!-- шапка -->
+</header>
+
+<main class="min-h-screen flex items-center justify-center px-6 lg:px-12">
+  <div class="text-center max-w-4xl">
+    <h1 class="text-6xl lg:text-9xl font-black mb-12 animate-on-scroll">СПАСИБО!</h1>
+    <p class="text-3xl lg:text-5xl text-gray-300 animate-on-scroll" style="margin-bottom: 3rem;">
+      Ваш заказ успешно оформлен.<br>
+      Ваша футболка теперь только ваша.
+    </p>
+    <a href="index.html" class="inline-block bg-white text-black font-black uppercase tracking-widest text-xl px-16 py-6 hover:bg-gray-300 transition animate-on-scroll">
+      На главную
+    </a>
+  </div>
+</main>
+
+<footer>
+  © 2026 AnyPrice. Все цены уникальны навсегда.
+</footer>
+
+<script>
+// анимация
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Лидерборд — AnyPrice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Шапка — точно такая же как в index.html -->
+<header>
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 border-2 border-white flex items-center justify-center text-3xl font-black">■</div>
+      <span class="text-3xl font-black tracking-tighter">ANYPRICE</span>
+    </div>
+    <nav class="hidden md:flex gap-10 text-sm uppercase tracking-wider font-medium">
+      <a href="index.html">Главная</a>
+      <a href="leaderboard.html">Лидерборд</a>
+      <a href="#" onclick="openCheckModal()">Проверить цену</a>
+      <a href="about.html">О нас</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+    <div class="text-3xl cursor-pointer">🛒</div>
+  </div>
+</header>
+
+<main class="pt-32 pb-32 px-6 lg:px-12">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-7xl lg:text-9xl font-black text-center mb-20 animate-on-scroll">ЛИДЕРБОРД</h1>
+
+    <div class="space-y-6 animate-on-scroll">
+      <div class="bg-zinc-950 border border-zinc-800 p-8 flex justify-between items-center text-2xl font-bold">
+        <div class="flex items-center gap-8">
+          <span class="text-6xl">1</span>
+          <span>250 000 ₽</span>
+        </div>
+        <span class="text-gray-400">@alex</span>
+      </div>
+      <div class="bg-zinc-950 border border-zinc-800 p-8 flex justify-between items-center text-2xl font-bold">
+        <div class="flex items-center gap-8">
+          <span class="text-6xl text-gray-500">2</span>
+          <span>180 000 ₽</span>
+        </div>
+        <span class="text-gray-400">@maxim</span>
+      </div>
+      <div class="bg-zinc-950 border border-zinc-800 p-8 flex justify-between items-center text-2xl font-bold">
+        <div class="flex items-center gap-8">
+          <span class="text-6xl text-gray-500">3</span>
+          <span>120 000 ₽</span>
+        </div>
+        <span class="text-gray-400">@ivan</span>
+      </div>
+      <!-- Добавь ещё 7–17 строк по аналогии, уменьшая сумму и меняя ники -->
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 AnyPrice. Все цены уникальны навсегда.
+</footer>
+
+<script>
+// Тот же код анимации и модала, что в index.html
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+function openCheckModal() { /* копия из index */ }
+function closeCheckModal() { /* копия из index */ }
+function checkPrice() { /* копия из index */ }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCheckModal(); });
+</script>
+</body>
+</html>

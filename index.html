@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AnyPrice — У каждой цены только один владелец</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 border-2 border-white flex items-center justify-center text-3xl font-black">■</div>
+      <span class="text-3xl font-black tracking-tighter">ANYPRICE</span>
+    </div>
+
+    <nav class="hidden md:flex gap-10 text-sm uppercase tracking-wider font-medium">
+      <a href="index.html">Главная</a>
+      <a href="leaderboard.html">Лидерборд</a>
+      <a href="#" onclick="openCheckModal()">Проверить цену</a>
+      <a href="about.html">О нас</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+
+    <div class="text-3xl cursor-pointer">🛒</div>
+  </div>
+</header>
+
+<main class="pt-32 pb-32 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+    <div>
+      <h1 class="text-6xl sm:text-8xl lg:text-9xl font-black animate-on-scroll">У КАЖДОЙ<br>ЦЕНЫ ТОЛЬКО<br>ОДИН<br>ВЛАДЕЛЕЦ</h1>
+      <p class="mt-10 text-2xl text-gray-400 animate-on-scroll">Проверь, свободна ли твоя цена.</p>
+      <button onclick="openCheckModal()" class="mt-12 bg-white text-black font-black uppercase tracking-widest text-lg px-16 py-6 hover:bg-gray-300 transition animate-on-scroll">
+        ПРОВЕРИТЬ ЦЕНУ
+      </button>
+    </div>
+
+    <div class="animate-on-scroll">
+      <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&auto=format&fit=crop&q=80" alt="Модель" class="max-h-[85vh] object-cover grayscale mx-auto lg:mx-0">
+    </div>
+  </div>
+</main>
+
+<!-- Модальное окно проверки -->
+<div id="checkModal" class="hidden fixed inset-0 bg-black/95 z-50 flex items-center justify-center">
+  <div class="bg-black border border-zinc-800 w-full max-w-lg mx-6 p-12 relative">
+    <button onclick="closeCheckModal()" class="absolute top-6 right-6 text-5xl text-gray-600 hover:text-white">×</button>
+
+    <h2 class="text-6xl lg:text-7xl font-black uppercase tracking-tighter text-center mb-8 animate-on-scroll">ПРОВЕРЬ<br>СВОЮ ЦЕНУ</h2>
+
+    <div class="space-y-10">
+      <div class="animate-on-scroll">
+        <label class="block text-sm uppercase tracking-widest text-gray-600 mb-3">Желаемая цена</label>
+        <input id="priceInput" type="number" min="1500" placeholder="1500+" class="border-b border-white py-4 text-4xl font-bold focus:border-gray-300">
+      </div>
+      <div class="animate-on-scroll">
+        <label class="block text-sm uppercase tracking-widest text-gray-600 mb-3">Твой ник</label>
+        <input id="nickInput" type="text" placeholder="@username" class="border-b border-white py-4 text-4xl font-bold focus:border-gray-300">
+      </div>
+      <div id="result" class="text-center text-3xl font-bold min-h-[100px] mt-8"></div>
+      <button onclick="checkPrice()" class="w-full bg-white text-black font-black uppercase tracking-widest text-xl py-6 hover:bg-gray-300 transition animate-on-scroll">
+        ПРОВЕРИТЬ
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 AnyPrice. Все цены уникальны навсегда.
+</footer>
+
+<script>
+// Анимация появления при скролле
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// Модал
+function openCheckModal() {
+  document.getElementById('checkModal').classList.remove('hidden');
+  document.getElementById('checkModal').classList.add('flex');
+}
+
+function closeCheckModal() {
+  document.getElementById('checkModal').classList.add('hidden');
+  document.getElementById('checkModal').classList.remove('flex');
+}
+
+function checkPrice() {
+  const price = parseInt(document.getElementById('priceInput').value);
+  const nick = document.getElementById('nickInput').value.trim();
+  const result = document.getElementById('result');
+
+  if (isNaN(price) || price < 1500) {
+    result.innerHTML = '<span class="text-red-500">Цена от 1500 ₽</span>';
+    return;
+  }
+  if (!nick.startsWith('@') || nick.length < 3) {
+    result.innerHTML = '<span class="text-red-500">Ник должен начинаться с @</span>';
+    return;
+  }
+
+  // Пока заглушка (в будущем — запрос к API / KV)
+  const taken = Math.random() < 0.25; // ~25% шанс занято для теста
+
+  if (taken) {
+    result.innerHTML = '<span class="text-red-500 uppercase tracking-wider">ЗАНЯТО</span>';
+  } else {
+    result.innerHTML = `
+      <div class="text-green-400 uppercase tracking-wider text-4xl mb-8">СВОБОДНО</div>
+      <a href="checkout.html?nick=${encodeURIComponent(nick)}&price=${price}"
+         class="inline-block bg-white text-black font-black uppercase tracking-widest text-xl px-12 py-6 hover:bg-gray-300 transition">
+        ПЕРЕЙТИ К ОФОРМЛЕНИЮ
+      </a>
+    `;
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeCheckModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Оформление заказа — AnyPrice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <!-- шапка -->
+</header>
+
+<main class="pt-40 pb-32 px-6 lg:px-12 max-w-lg mx-auto">
+  <h1 class="text-6xl lg:text-8xl font-black text-center mb-16 animate-on-scroll">ОФОРМЛЕНИЕ</h1>
+
+  <div class="bg-zinc-950 border border-zinc-800 p-10 mb-12 text-center animate-on-scroll">
+    <p class="text-xl text-gray-400 mb-4">Ваша уникальная комбинация</p>
+    <p id="orderInfo" class="text-3xl font-bold"></p>
+  </div>
+
+  <form id="orderForm" class="space-y-10 animate-on-scroll">
+    <div>
+      <label class="block text-sm uppercase tracking-widest text-gray-600 mb-3">ФИО</label>
+      <input type="text" id="fullName" required>
+    </div>
+    <div>
+      <label class="block text-sm uppercase tracking-widest text-gray-600 mb-3">Email</label>
+      <input type="email" id="email" required>
+    </div>
+    <div>
+      <label class="block text-sm uppercase tracking-widest text-gray-600 mb-3">Телефон</label>
+      <input type="tel" id="phone" required placeholder="+7 (___) ___-__-__">
+    </div>
+    <div>
+      <label class="block text-sm uppercase tracking-widest text-gray-600 mb-3">Размер</label>
+      <select id="size" required>
+        <option value="" disabled selected>Выберите размер</option>
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+        <option>XXL</option>
+      </select>
+    </div>
+
+    <button type="submit" class="w-full bg-white text-black font-black uppercase tracking-widest text-xl py-6 hover:bg-gray-300 transition">
+      ОФОРМИТЬ ЗАКАЗ
+    </button>
+  </form>
+
+  <p class="text-center text-gray-500 mt-8 text-sm animate-on-scroll">
+    Оплата после подтверждения • Доставка 7–14 дней
+  </p>
+</main>
+
+<footer>
+  © 2026 AnyPrice. Все цены уникальны навсегда.
+</footer>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const nick = urlParams.get('nick') || '@username';
+const price = urlParams.get('price') || '—';
+
+document.getElementById('orderInfo').innerHTML = 
+  `${nick} за <span class="text-green-400">${Number(price).toLocaleString('ru-RU')} ₽</span>`;
+
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert(`Заказ оформлен!\n\n${nick} за ${price} ₽\n\nСкоро свяжемся с вами.`);
+  window.location.href = 'success.html';
+});
+
+// анимация
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

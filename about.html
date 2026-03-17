@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>О нас — AnyPrice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 border-2 border-white flex items-center justify-center text-3xl font-black">■</div>
+      <span class="text-3xl font-black tracking-tighter">ANYPRICE</span>
+    </div>
+    <nav class="hidden md:flex gap-10 text-sm uppercase tracking-wider font-medium">
+      <a href="index.html">Главная</a>
+      <a href="leaderboard.html">Лидерборд</a>
+      <a href="#" onclick="openCheckModal()">Проверить цену</a>
+      <a href="about.html">О нас</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+    <div class="text-3xl cursor-pointer">🛒</div>
+  </div>
+</header>
+
+<main class="pt-40 pb-32 px-6 lg:px-12 max-w-4xl mx-auto text-center">
+  <h1 class="text-7xl lg:text-9xl font-black mb-16 animate-on-scroll">О НАС</h1>
+  
+  <p class="text-2xl lg:text-3xl text-gray-300 leading-relaxed animate-on-scroll" style="margin-bottom: 3rem;">
+    AnyPrice — это не про одежду.<br>
+    Это про статус. Про эксклюзивность. Про то, чтобы быть единственным.
+  </p>
+
+  <p class="text-xl lg:text-2xl text-gray-500 leading-relaxed animate-on-scroll">
+    Каждая комбинация никнейма и цены существует ровно один раз.<br>
+    После покупки она навсегда становится твоей — и только твоей.<br><br>
+    Мы не продаём массовый продукт.<br>
+    Мы продаём уникальность.
+  </p>
+</main>
+
+<footer>
+  © 2026 AnyPrice. Все цены уникальны навсегда.
+</footer>
+
+<script>
+// Анимация появления
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// Модальное окно (если нужно проверять цену со страницы "О нас")
+function openCheckModal() {
+  document.getElementById('checkModal')?.classList.remove('hidden');
+  document.getElementById('checkModal')?.classList.add('flex');
+}
+function closeCheckModal() {
+  document.getElementById('checkModal')?.classList.add('hidden');
+  document.getElementById('checkModal')?.classList.remove('flex');
+}
+</script>
+</body>
+</html>
